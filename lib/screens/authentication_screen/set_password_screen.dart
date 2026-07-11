@@ -1,17 +1,18 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:task_manager_a/screens/authentication_screen/email_verification_screen.dart';
 import 'package:task_manager_a/screens/authentication_screen/sign_up_screen.dart';
 import 'package:task_manager_a/utils/app_colors.dart';
 import 'package:task_manager_a/widget/screen_bg.dart';
 
-class LogInScreen extends StatefulWidget {
-  const LogInScreen({super.key});
+class SetPasswordScreen extends StatefulWidget {
+  const SetPasswordScreen({super.key});
 
   @override
-  State<LogInScreen> createState() => _LogInScreenState();
+  State<SetPasswordScreen> createState() => _SetPasswordScreenState();
 }
 
-class _LogInScreenState extends State<LogInScreen> {
+class _SetPasswordScreenState extends State<SetPasswordScreen> {
 
   void onTapSignUp(){
     Navigator.push(context, MaterialPageRoute(builder: (context)=>SingUpScreen()));
@@ -32,40 +33,39 @@ class _LogInScreenState extends State<LogInScreen> {
                 children: [
                   Text(
                     textAlign: TextAlign.start,
-                    'Get Started With',
+                    'Set Password ',
                     style: Theme.of(context).textTheme.titleLarge,
                   ),
-                  SizedBox(height: 20),
-                  TextFormField(
-                    decoration: InputDecoration(
-                      hintText: 'Email',
-                      border: OutlineInputBorder(),
-                    ),
+                  SizedBox(height: 16,),
+                  Text(
+                    textAlign: TextAlign.start,
+                    'Minimum length password 8 character with Letter and number combination ',
+                    style: TextStyle(fontSize: 12),
                   ),
-                  SizedBox(height: 12),
+                  SizedBox(height: 20,),
                   TextFormField(
                     decoration: InputDecoration(
                       hintText: 'Password',
                       border: OutlineInputBorder(),
                     ),
                   ),
+                  SizedBox(height: 12),
+                  TextFormField(
+                    decoration: InputDecoration(
+                      hintText: 'Confirm Password',
+                      border: OutlineInputBorder(),
+                    ),
+                  ),
                   SizedBox(height: 12,),
 
-
-                  FilledButton(onPressed: (){}, child:Icon(Icons.arrow_circle_right,size: 24)),
+                  FilledButton(onPressed: (){
+                    Navigator.push(context, MaterialPageRoute(builder: (context)=>EmailVerificationScreen()));
+                  }, child:Icon(Icons.arrow_circle_right,size: 24)),
 
                   SizedBox(height: 80),
                   Center(
                     child: Column(
                       children: [
-                        TextButton(
-                          onPressed: () {},
-                          child: Text(
-                            'Forget Password',
-                            style: TextStyle(color: Colors.grey),
-                          ),
-                        ),
-                        SizedBox(height: 12),
                         RichText(
                           text: TextSpan(
                             text: "Don't Have an Account",

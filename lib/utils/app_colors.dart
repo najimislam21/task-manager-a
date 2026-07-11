@@ -2,5 +2,5 @@
 import 'package:flutter/material.dart';
 
 class AppColors {
-  static Color PColor =Colors.green.shade300;
+  static Color PColor =Colors.green.shade500;
 }
