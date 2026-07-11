@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:task_manager_a/screens/authentication_screen/log_in_screen.dart';
 import 'package:task_manager_a/widget/screen_bg.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -9,9 +10,18 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_){
+      moveToNextScreen();
+    });
+  }
 
   Future<void>moveToNextScreen()async {
     Future.delayed(Duration(seconds: 2));
+    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>LogInScreen()));
   }
 
   @override
