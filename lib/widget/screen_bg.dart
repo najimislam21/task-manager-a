@@ -8,7 +8,7 @@ class ScreenBg extends StatelessWidget {
   Widget build(BuildContext context) {
     return Stack(
       children: [
-        Positioned.fill(child: Image.asset('assets/images/bg.png',
+        Positioned.fill(child: Image.asset('',
         fit: BoxFit.cover,
         )),
         child,

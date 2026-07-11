@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:task_manager_a/utils/app_colors.dart';
 import 'package:task_manager_a/widget/screen_bg.dart';
 
 class LogInScreen extends StatefulWidget {
@@ -40,6 +41,9 @@ class _LogInScreenState extends State<LogInScreen> {
                     ),
                   ),
 
+
+                  FilledButton(onPressed: (){}, child:Icon(Icons.arrow_circle_right)),
+
                   SizedBox(height: 80),
                   Column(
                     children: [
@@ -62,7 +66,7 @@ class _LogInScreenState extends State<LogInScreen> {
                             TextSpan(
                               text: 'Sing Up',
                               style: TextStyle( fontWeight: FontWeight.w500,
-                                color: Colors.blue,
+                                color: AppColors.PColor,
                               ),
                             ),
                           ],
