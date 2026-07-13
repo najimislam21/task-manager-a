@@ -39,10 +39,12 @@ class _NewTaskScreenState extends State<NewTaskScreen> {
                 )),
 
                 subtitle: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(' lorem ipsum is simply dummy text of the printing and typesetting'),
                     Text('date: 12/7/2026'),
                     Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
                       children: [
                         Chip(label: Text('New'),
                         backgroundColor: Colors.blue,
@@ -53,6 +55,9 @@ class _NewTaskScreenState extends State<NewTaskScreen> {
                             borderRadius: BorderRadiusGeometry.circular(25)
                           ),
                         ),
+
+                        Spacer(),
+
                         IconButton(onPressed: (){}, icon: Icon(Icons.edit_note,color:Colors.orange)),
                         IconButton(onPressed: (){}, icon: Icon(Icons.delete,color:Colors.red)),
                       ],
