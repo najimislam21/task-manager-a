@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:task_manager_a/data/model/api_response.dart';
+import 'package:task_manager_a/data/service/api_caller.dart';
 import 'package:task_manager_a/screens/authentication_screen/log_in_screen.dart';
 import 'package:task_manager_a/screens/authentication_screen/set_password_screen.dart';
 import 'package:task_manager_a/utils/app_colors.dart';
+import 'package:task_manager_a/utils/urls.dart';
 import 'package:task_manager_a/widget/screen_bg.dart';
 import 'package:flutter/gestures.dart';
 
@@ -13,17 +16,40 @@ class SingUpScreen extends StatefulWidget {
 }
 
 class _SingUpScreenState extends State<SingUpScreen> {
-
-  void onTapSignIn(){
-    Navigator.push(context, MaterialPageRoute(builder: (context)=>LogInScreen()));
+  void onTapSignIn() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => LogInScreen()),
+    );
   }
- final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+
+  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
   TextEditingController emailController = TextEditingController();
   TextEditingController firstNameController = TextEditingController();
   TextEditingController lastNameController = TextEditingController();
   TextEditingController mobileController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+
+  Future<void> signUp() async {
+    final ApiResponse response = await ApiCaller.postRequest(url: TMUrls.singUpURL,
+      body: {
+        "email": emailController.text,
+        "firstName": firstNameController.text,
+        "lastName": lastNameController.text,
+        "mobile": mobileController.text,
+        "password": passwordController.text,
+      },
+    );
+    if(response.isSuccess){
+      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> LogInScreen()));
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Sign up Success'),));
+    }else{
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(response.responseData['data']),));
+
+    }
+
+  }
 
   Widget build(BuildContext context) {
     return Scaffold(
@@ -49,10 +75,10 @@ class _SingUpScreenState extends State<SingUpScreen> {
                         hintText: 'Email',
                         border: OutlineInputBorder(),
                       ),
-                      validator: (value){
-                        if(value == null || value.isEmpty){
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
                           return 'Please enter email';
-                        }else{
+                        } else {
                           return null;
                         }
                       },
@@ -64,10 +90,10 @@ class _SingUpScreenState extends State<SingUpScreen> {
                         hintText: 'First Name',
                         border: OutlineInputBorder(),
                       ),
-                      validator: (value){
-                        if(value == null || value.isEmpty){
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
                           return 'Please enter firstName';
-                        }else{
+                        } else {
                           return null;
                         }
                       },
@@ -79,10 +105,10 @@ class _SingUpScreenState extends State<SingUpScreen> {
                         hintText: 'Last Name',
                         border: OutlineInputBorder(),
                       ),
-                      validator: (value){
-                        if(value == null || value.isEmpty){
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
                           return 'Please enter lastName';
-                        }else{
+                        } else {
                           return null;
                         }
                       },
@@ -94,40 +120,41 @@ class _SingUpScreenState extends State<SingUpScreen> {
                         hintText: 'Mobile',
                         border: OutlineInputBorder(),
                       ),
-                      validator: (value){
-                        if(value == null || value.isEmpty){
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
                           return 'Please enter mobile';
-                        }else if(
-                          value.length != 11){
-                            return 'Please enter correct number';
-                        }else{
+                        } else if (value.length != 11) {
+                          return 'Please enter correct number';
+                        } else {
                           return null;
                         }
                       },
                     ),
-                    SizedBox(height: 12,),
+                    SizedBox(height: 12),
                     TextFormField(
                       controller: passwordController,
                       decoration: InputDecoration(
                         hintText: 'Password',
                         border: OutlineInputBorder(),
                       ),
-                      validator: (value){
-                        if(value == null || value.isEmpty){
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
                           return 'Please enter password';
-                        }else{
+                        } else {
                           return null;
                         }
                       },
                     ),
-                    SizedBox(height: 12,),
+                    SizedBox(height: 12),
 
-
-                    FilledButton(onPressed: (){
-                      if(formKey.currentState!.validate()){
-
-                      }
-                    }, child:Icon(Icons.arrow_circle_right,size: 24)),
+                    FilledButton(
+                      onPressed: () {
+                        if (formKey.currentState!.validate()) {
+                          signUp();
+                        }
+                      },
+                      child: Icon(Icons.arrow_circle_right, size: 24),
+                    ),
 
                     SizedBox(height: 60),
                     Center(
@@ -137,16 +164,19 @@ class _SingUpScreenState extends State<SingUpScreen> {
                           RichText(
                             text: TextSpan(
                               text: "Have an Account?",
-                              style: TextStyle(fontWeight: FontWeight.w500,
+                              style: TextStyle(
+                                fontWeight: FontWeight.w500,
                                 color: Colors.black,
                               ),
                               children: [
                                 TextSpan(
                                   text: 'Sing In',
-                                  style: TextStyle( fontWeight: FontWeight.w500,
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.w500,
                                     color: AppColors.PColor,
                                   ),
-                                  recognizer: TapGestureRecognizer()..onTap = onTapSignIn,
+                                  recognizer: TapGestureRecognizer()
+                                    ..onTap = onTapSignIn,
                                 ),
                               ],
                             ),
