@@ -10,14 +10,14 @@ class ApiCaller {
     Response response = await get(Uri.parse(url),
 
       headers: {
-      'token' : ''
+      'token' : AuthController.accessToken ?? ''
       }
     );
     print('URL=== $url');
     print('respons=== ${response.body}');
 
     if(response.statusCode == 200){
-      return ApiResponse(responseCode: response.statusCode, responseData: response.body, isSuccess: true);
+      return ApiResponse(responseCode: response.statusCode, responseData: jsonDecode(response.body), isSuccess: true);
     }else{
       return ApiResponse(responseCode: response.statusCode, responseData: jsonDecode(response.body), isSuccess: false, errorMassage: jsonDecode(response.body));
     }

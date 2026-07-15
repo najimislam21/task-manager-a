@@ -1,4 +1,3 @@
-import 'dart:convert';
 
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -52,7 +51,6 @@ class _LogInScreenState extends State<LogInScreen> {
     }
 
   }
-
 
   @override
   Widget build(BuildContext context) {
