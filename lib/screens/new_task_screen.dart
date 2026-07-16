@@ -50,7 +50,6 @@ class _NewTaskScreenState extends State<NewTaskScreen> {
   }
 
   List<TaskModel> tasks = [];
-
   Future<void> getAllTask() async {
     final ApiResponse response = await ApiCaller.getRequest(
       url: TMUrls.getTaskByStatusURL('New'),

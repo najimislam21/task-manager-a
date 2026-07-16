@@ -64,6 +64,7 @@ class _AddNewTaskScreenState extends State<AddNewTaskScreen> {
                   SizedBox(height: 12),
                   TextFormField(
                     controller: descriptionController,
+                    maxLines: 6,
                     decoration: InputDecoration(
                       hintText: 'Description',
                       border: OutlineInputBorder(),

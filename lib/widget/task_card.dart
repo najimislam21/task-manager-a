@@ -132,7 +132,7 @@ class _TaskCardState extends State<TaskCard> {
             children: [
               Chip(
                 label: Text(widget.taskModel.status.toString()),
-                backgroundColor: Colors.blue,
+                backgroundColor: widget.CardColor,
                 labelStyle: TextStyle(color: Colors.white),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadiusGeometry.circular(25),
