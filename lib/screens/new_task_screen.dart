@@ -32,12 +32,15 @@ class _NewTaskScreenState extends State<NewTaskScreen> {
     final ApiResponse response = await ApiCaller.getRequest(
       url: TMUrls.getTaskCountURL,
     );
+
     List<TaskStatusCount> taskC = [];
 
     if (response.isSuccess) {
       for (Map<String, dynamic> jsonData in response.responseData['data']) {
         taskC.add(TaskStatusCount.fromJson(jsonData));
       }
+      taskC.removeWhere((e)=>e.sId == null);
+
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text(jsonDecode(response.responseData['data']))),
@@ -74,6 +77,12 @@ class _NewTaskScreenState extends State<NewTaskScreen> {
 
   @override
   Widget build(BuildContext context) {
+    List<String>statusOrder = [
+      'New',
+      'Progress',
+      'Completed',
+      'Cancelled',
+    ];
     return Scaffold(
       body: Column(
         children: [
@@ -83,12 +92,16 @@ class _NewTaskScreenState extends State<NewTaskScreen> {
               height: 90,
               child: ListView.separated(
                 scrollDirection: Axis.horizontal,
-                itemCount: taskCount.length,
+                itemCount: statusOrder.length,
                 itemBuilder: (context, index) {
-                  final Tcount = taskCount[index];
+                  final status = statusOrder[index];
+                  final task = taskCount.firstWhere((e)=>e.sId == status,orElse: ()=> TaskStatusCount(
+                    sId: status,
+                    sum: 0
+                  ));
                   return TaskCountByStatus(
-                    title: Tcount.sId.toString(),
-                    count: Tcount.sum!.toInt(),
+                    title: task.sId.toString(),
+                    count: task.sum!.toInt(),
                   );
                 },
                 separatorBuilder: (BuildContext context, int index) {
